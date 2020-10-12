@@ -12328,1001 +12328,1003 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var bulmaCalendar = function (_EventEmitter) {
-  _inherits(bulmaCalendar, _EventEmitter);
+	_inherits(bulmaCalendar, _EventEmitter);
 
-  function bulmaCalendar(selector) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	function bulmaCalendar(selector) {
+		var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    _classCallCheck(this, bulmaCalendar);
+		_classCallCheck(this, bulmaCalendar);
 
-    var _this = _possibleConstructorReturn(this, (bulmaCalendar.__proto__ || Object.getPrototypeOf(bulmaCalendar)).call(this));
+		var _this = _possibleConstructorReturn(this, (bulmaCalendar.__proto__ || Object.getPrototypeOf(bulmaCalendar)).call(this));
 
-    _this.element = __WEBPACK_IMPORTED_MODULE_1__utils_type__["e" /* isString */](selector) ? document.querySelector(selector) : selector;
-    // An invalid selector or non-DOM node has been provided.
-    if (!_this.element) {
-      throw new Error('An invalid selector or non-DOM node has been provided.');
-    }
-    _this._clickEvents = ['click', 'touch'];
-    _this._supportsPassive = __WEBPACK_IMPORTED_MODULE_0__utils_index__["a" /* detectSupportsPassive */]();
+		_this.element = __WEBPACK_IMPORTED_MODULE_1__utils_type__["e" /* isString */](selector) ? document.querySelector(selector) : selector;
+		// An invalid selector or non-DOM node has been provided.
+		if (!_this.element) {
+			throw new Error('An invalid selector or non-DOM node has been provided.');
+		}
+		_this._clickEvents = ['click', 'touch'];
+		_this._supportsPassive = __WEBPACK_IMPORTED_MODULE_0__utils_index__["a" /* detectSupportsPassive */]();
 
-    // Use Element dataset values to override options
-    var elementConfig = _this.element.dataset ? Object.keys(_this.element.dataset).filter(function (key) {
-      return Object.keys(__WEBPACK_IMPORTED_MODULE_7__defaultOptions__["a" /* default */]).includes(key);
-    }).reduce(function (obj, key) {
-      return _extends({}, obj, _defineProperty({}, key, _this.element.dataset[key]));
-    }, {}) : {};
+		// Use Element dataset values to override options
+		var elementConfig = _this.element.dataset ? Object.keys(_this.element.dataset).filter(function (key) {
+			return Object.keys(__WEBPACK_IMPORTED_MODULE_7__defaultOptions__["a" /* default */]).includes(key);
+		}).reduce(function (obj, key) {
+			return _extends({}, obj, _defineProperty({}, key, _this.element.dataset[key]));
+		}, {}) : {};
 
-    // Set default options - dataset attributes are master
-    _this.options = _extends({}, __WEBPACK_IMPORTED_MODULE_7__defaultOptions__["a" /* default */], options, elementConfig);
+		// Set default options - dataset attributes are master
+		_this.options = _extends({}, __WEBPACK_IMPORTED_MODULE_7__defaultOptions__["a" /* default */], options, elementConfig);
 
-    if (_this.options.type === undefined) {
-      switch (_this.element.getAttribute('type')) {
-        case 'date':
-          _this.options.type = 'date';
-          break;
-        case 'time':
-          _this.options.type = 'time';
-          break;
-        default:
-          _this.options.type = 'datetime';
-          break;
-      }
-    }
-    _this._id = __WEBPACK_IMPORTED_MODULE_0__utils_index__["b" /* uuid */]('datetimePicker');
+		if (_this.options.type === undefined) {
+			switch (_this.element.getAttribute('type')) {
+				case 'date':
+					_this.options.type = 'date';
+					break;
+				case 'time':
+					_this.options.type = 'time';
+					break;
+				default:
+					_this.options.type = 'datetime';
+					break;
+			}
+		}
+		_this._id = __WEBPACK_IMPORTED_MODULE_0__utils_index__["b" /* uuid */]('datetimePicker');
 
-    _this.onToggleDateTimePicker = _this.onToggleDateTimePicker.bind(_this);
-    _this.onCloseDateTimePicker = _this.onCloseDateTimePicker.bind(_this);
-    _this.onDocumentClickDateTimePicker = _this.onDocumentClickDateTimePicker.bind(_this);
-    _this.onValidateClickDateTimePicker = _this.onValidateClickDateTimePicker.bind(_this);
-    _this.onTodayClickDateTimePicker = _this.onTodayClickDateTimePicker.bind(_this);
-    _this.onClearClickDateTimePicker = _this.onClearClickDateTimePicker.bind(_this);
-    _this.onCancelClickDateTimePicker = _this.onCancelClickDateTimePicker.bind(_this);
-    _this.onSelectDateTimePicker = _this.onSelectDateTimePicker.bind(_this);
-    _this.onChangeStartHoursManually = _this.onChangeStartHoursManually.bind(_this);
-    _this.onChangeStartMinutesManually = _this.onChangeStartMinutesManually.bind(_this);
-    _this.onChangeEndHoursManually = _this.onChangeEndHoursManually.bind(_this);
-    _this.onChangeEndMinutesManually = _this.onChangeEndMinutesManually.bind(_this);
-    _this.changeTimeManually = _this.changeTimeManually.bind(_this);
+		_this.onToggleDateTimePicker = _this.onToggleDateTimePicker.bind(_this);
+		_this.onCloseDateTimePicker = _this.onCloseDateTimePicker.bind(_this);
+		_this.onDocumentClickDateTimePicker = _this.onDocumentClickDateTimePicker.bind(_this);
+		_this.onValidateClickDateTimePicker = _this.onValidateClickDateTimePicker.bind(_this);
+		_this.onTodayClickDateTimePicker = _this.onTodayClickDateTimePicker.bind(_this);
+		_this.onClearClickDateTimePicker = _this.onClearClickDateTimePicker.bind(_this);
+		_this.onCancelClickDateTimePicker = _this.onCancelClickDateTimePicker.bind(_this);
+		_this.onSelectDateTimePicker = _this.onSelectDateTimePicker.bind(_this);
+		_this.onChangeStartHoursManually = _this.onChangeStartHoursManually.bind(_this);
+		_this.onChangeStartMinutesManually = _this.onChangeStartMinutesManually.bind(_this);
+		_this.onChangeEndHoursManually = _this.onChangeEndHoursManually.bind(_this);
+		_this.onChangeEndMinutesManually = _this.onChangeEndMinutesManually.bind(_this);
+		_this.changeTimeManually = _this.changeTimeManually.bind(_this);
 
-    // Initiate plugin
-    _this._init();
-    return _this;
-  }
+		// Initiate plugin
+		_this._init();
+		return _this;
+	}
 
-  /**
-   * Initiate all DOM element containing datePicker class
-   * @method
-   * @return {Array} Array of all datePicker instances
+	/**
+  * Initiate all DOM element containing datePicker class
+  * @method
+  * @return {Array} Array of all datePicker instances
+  */
+
+
+	_createClass(bulmaCalendar, [{
+		key: 'onSelectDateTimePicker',
+
+
+		/****************************************************
+   *                                                  *
+   * EVENTS FUNCTIONS                                 *
+   *                                                  *
+   ****************************************************/
+		value: function onSelectDateTimePicker(e) {
+			if (e.type === 'select' && this.options.closeOnSelect === true && this.options.displayMode !== 'inline') {
+				this.refresh();
+				this.save();
+				this.hide();
+				this.emit(e.type, this);
+			}
+		}
+	}, {
+		key: 'onDocumentClickDateTimePicker',
+		value: function onDocumentClickDateTimePicker(e) {
+			// Check is e.target not within datepicker element
+			var target = e.target || e.srcElement;
+			if (!this._ui.wrapper.contains(target) && this.options.displayMode !== 'inline' && this._open) {
+				this.onCloseDateTimePicker(e);
+			}
+		}
+	}, {
+		key: 'onToggleDateTimePicker',
+		value: function onToggleDateTimePicker(e) {
+			if (!this._supportsPassive) {
+				e.preventDefault();
+			}
+			e.stopPropagation();
+
+			if (this._open) {
+				this.hide();
+			} else {
+				this.show();
+			}
+		}
+	}, {
+		key: 'onValidateClickDateTimePicker',
+		value: function onValidateClickDateTimePicker(e) {
+			if (!this._supportsPassive) {
+				e.preventDefault();
+			}
+			e.stopPropagation();
+
+			this.save();
+			this.emit('validate', this);
+
+			if (this.options.displayMode !== 'inline') {
+				this.onCloseDateTimePicker(e);
+			}
+		}
+	}, {
+		key: 'onTodayClickDateTimePicker',
+		value: function onTodayClickDateTimePicker(e) {
+			if (!this._supportsPassive) {
+				e.preventDefault();
+			}
+			e.stopPropagation();
+
+			this.datePicker.value(new Date());
+			this.datePicker.refresh();
+
+			this.timePicker.value(new Date());
+			this.timePicker.refresh();
+
+			if (this.options.closeOnSelect && this.options.displayMode !== 'inline') {
+				this.save();
+			}
+		}
+	}, {
+		key: 'onClearClickDateTimePicker',
+		value: function onClearClickDateTimePicker(e) {
+			if (!this._supportsPassive) {
+				e.preventDefault();
+			}
+			e.stopPropagation();
+
+			this.clear();
+
+			//this.emit('clear', this);
+		}
+	}, {
+		key: 'onCancelClickDateTimePicker',
+		value: function onCancelClickDateTimePicker(e) {
+			if (!this._supportsPassive) {
+				e.preventDefault();
+			}
+			e.stopPropagation();
+
+			if (this._snapshots.length) {
+				this.datePicker = this._snapshots[0].datePicker;
+				this.timePicker = this._snapshots[0].timePicker;
+			}
+			this.save();
+			if (this.options.displayMode !== 'inline') {
+				this.onCloseDateTimePicker(e);
+			}
+		}
+	}, {
+		key: 'onCloseDateTimePicker',
+		value: function onCloseDateTimePicker(e) {
+			if (!this._supportsPassive) {
+				e.preventDefault();
+			}
+			e.stopPropagation();
+
+			this.hide();
+		}
+	}, {
+		key: 'onClickTimeManuallyInput',
+		value: function onClickTimeManuallyInput(e) {
+			e.currentTarget.select();
+		}
+	}, {
+		key: 'onChangeStartHoursManually',
+		value: function onChangeStartHoursManually(e) {
+			var start = this.timePicker._time.start;
+			start.setHours(e.currentTarget.value);
+			this.timePicker.start = start;
+
+			this.changeTimeManually();
+		}
+	}, {
+		key: 'onChangeStartMinutesManually',
+		value: function onChangeStartMinutesManually(e) {
+			var start = this.timePicker._time.start;
+			start.setMinutes(e.currentTarget.value);
+			this.timePicker.start = start;
+
+			this.changeTimeManually();
+		}
+	}, {
+		key: 'onChangeEndHoursManually',
+		value: function onChangeEndHoursManually(e) {
+			var end = this.timePicker._time.end;
+			end.setHours(e.currentTarget.value);
+			this.timePicker.end = end;
+
+			this.changeTimeManually();
+		}
+	}, {
+		key: 'onChangeEndMinutesManually',
+		value: function onChangeEndMinutesManually(e) {
+			var end = this.timePicker._time.end;
+			end.setMinutes(e.currentTarget.value);
+			this.timePicker.end = end;
+
+			this.changeTimeManually();
+		}
+	}, {
+		key: 'changeTimeManually',
+		value: function changeTimeManually() {
+			this.refresh();
+			this.save();
+		}
+
+		/****************************************************
+   *                                                  *
+   * PUBLIC FUNCTIONS                                 *
+   *                                                  *
+   ****************************************************/
+
+	}, {
+		key: 'isRange',
+		value: function isRange() {
+			return this.options.isRange;
+		}
+
+		/**
+   * Returns true if datetime picker is open, otherwise false.
+   * @method isOpen
+   * @return {boolean}
    */
 
-
-  _createClass(bulmaCalendar, [{
-    key: 'onSelectDateTimePicker',
-
-
-    /****************************************************
-     *                                                  *
-     * EVENTS FUNCTIONS                                 *
-     *                                                  *
-     ****************************************************/
-    value: function onSelectDateTimePicker(e) {
-      if (e.type === 'select' && this.options.closeOnSelect === true && this.options.displayMode !== 'inline') {
-        this.refresh();
-        this.save();
-        this.hide();
-        this.emit(e.type, this);
-      }
-    }
-  }, {
-    key: 'onDocumentClickDateTimePicker',
-    value: function onDocumentClickDateTimePicker(e) {
-      // Check is e.target not within datepicker element
-      var target = e.target || e.srcElement;
-      if (!this._ui.wrapper.contains(target) && this.options.displayMode !== 'inline' && this._open) {
-        this.onCloseDateTimePicker(e);
-      }
-    }
-  }, {
-    key: 'onToggleDateTimePicker',
-    value: function onToggleDateTimePicker(e) {
-      if (!this._supportsPassive) {
-        e.preventDefault();
-      }
-      e.stopPropagation();
-
-      if (this._open) {
-        this.hide();
-      } else {
-        this.show();
-      }
-    }
-  }, {
-    key: 'onValidateClickDateTimePicker',
-    value: function onValidateClickDateTimePicker(e) {
-      if (!this._supportsPassive) {
-        e.preventDefault();
-      }
-      e.stopPropagation();
-
-      this.save();
-      this.emit('validate', this);
-
-      if (this.options.displayMode !== 'inline') {
-        this.onCloseDateTimePicker(e);
-      }
-    }
-  }, {
-    key: 'onTodayClickDateTimePicker',
-    value: function onTodayClickDateTimePicker(e) {
-      if (!this._supportsPassive) {
-        e.preventDefault();
-      }
-      e.stopPropagation();
-
-      this.datePicker.value(new Date());
-      this.datePicker.refresh();
-
-      this.timePicker.value(new Date());
-      this.timePicker.refresh();
-
-      if (this.options.closeOnSelect && this.options.displayMode !== 'inline') {
-        this.save();
-      }
-    }
-  }, {
-    key: 'onClearClickDateTimePicker',
-    value: function onClearClickDateTimePicker(e) {
-      if (!this._supportsPassive) {
-        e.preventDefault();
-      }
-      e.stopPropagation();
-
-      this.clear();
-
-      //this.emit('clear', this);
-    }
-  }, {
-    key: 'onCancelClickDateTimePicker',
-    value: function onCancelClickDateTimePicker(e) {
-      if (!this._supportsPassive) {
-        e.preventDefault();
-      }
-      e.stopPropagation();
-
-      if (this._snapshots.length) {
-        this.datePicker = this._snapshots[0].datePicker;
-        this.timePicker = this._snapshots[0].timePicker;
-      }
-      this.save();
-      if (this.options.displayMode !== 'inline') {
-        this.onCloseDateTimePicker(e);
-      }
-    }
-  }, {
-    key: 'onCloseDateTimePicker',
-    value: function onCloseDateTimePicker(e) {
-      if (!this._supportsPassive) {
-        e.preventDefault();
-      }
-      e.stopPropagation();
-
-      this.hide();
-    }
-  }, {
-    key: 'onClickTimeManuallyInput',
-    value: function onClickTimeManuallyInput(e) {
-      e.currentTarget.select();
-    }
-  }, {
-    key: 'onChangeStartHoursManually',
-    value: function onChangeStartHoursManually(e) {
-      var start = this.timePicker._time.start;
-      start.setHours(e.currentTarget.value);
-      this.timePicker.start = start;
-
-      this.changeTimeManually();
-    }
-  }, {
-    key: 'onChangeStartMinutesManually',
-    value: function onChangeStartMinutesManually(e) {
-      var start = this.timePicker._time.start;
-      start.setMinutes(e.currentTarget.value);
-      this.timePicker.start = start;
-
-      this.changeTimeManually();
-    }
-  }, {
-    key: 'onChangeEndHoursManually',
-    value: function onChangeEndHoursManually(e) {
-      var end = this.timePicker._time.end;
-      end.setHours(e.currentTarget.value);
-      this.timePicker.end = end;
-
-      this.changeTimeManually();
-    }
-  }, {
-    key: 'onChangeEndMinutesManually',
-    value: function onChangeEndMinutesManually(e) {
-      var end = this.timePicker._time.end;
-      end.setMinutes(e.currentTarget.value);
-      this.timePicker.end = end;
-
-      this.changeTimeManually();
-    }
-  }, {
-    key: 'changeTimeManually',
-    value: function changeTimeManually() {
-      this.refresh();
-      this.save();
-    }
-
-    /****************************************************
-     *                                                  *
-     * PUBLIC FUNCTIONS                                 *
-     *                                                  *
-     ****************************************************/
-
-  }, {
-    key: 'isRange',
-    value: function isRange() {
-      return this.options.isRange;
-    }
-
-    /**
-     * Returns true if datetime picker is open, otherwise false.
-     * @method isOpen
-     * @return {boolean}
-     */
-
-  }, {
-    key: 'isOpen',
-    value: function isOpen() {
-      return this._open;
-    }
-
-    /**
-     * Get / Set datetimePicker value
-     * @param {*} date 
-     */
-
-  }, {
-    key: 'value',
-    value: function value() {
-      var _value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (_value) {
-        this.datePicker.value(_value);
-        this.timePicker.value(_value);
-      } else {
-        var string = '';
-        switch (this.options.type) {
-          case 'date':
-            string = this.datePicker.value();
-            break;
-          case 'time':
-            string = this.timePicker.value();
-            break;
-          case 'datetime':
-            var start = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["getTime"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addMinutes"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addHours"](this.datePicker.start, __WEBPACK_IMPORTED_MODULE_2_date_fns__["getHours"](this.timePicker.start)), __WEBPACK_IMPORTED_MODULE_2_date_fns__["getMinutes"](this.timePicker.start))) : undefined;
-            var end = this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["getTime"](this.datePicker.end) : undefined;
-
-            if (end && this.options.isRange) {
-              // This options is not required - in other place i set eod on date
-              //end = dateFns.getTime(dateFns.addMinutes(dateFns.addHours(this.datePicker.end, dateFns.getHours(this.timePicker.end)), dateFns.getMinutes(this.timePicker.end)));
-            }
-
-            string = start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](new Date(start), this.format, {
-              locale: this.locale
-            }) : '';
-            if (end) {
-              string += ' - ' + (end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](new Date(end), this.format, { locale: this.locale }) : '');
-            }
-            break;
-        }
-        return string;
-      }
-    }
-  }, {
-    key: 'refresh',
-    value: function refresh() {
-      this._ui.header.start.day.innerHTML = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.start, 'DD', {
-        locale: this.locale
-      }) : '--';
-      this._ui.header.start.month.innerHTML = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.start, 'MMMM YYYY', {
-        locale: this.locale
-      }) : '';
-      if (this.datePicker.start) {
-        this._ui.header.start.weekday.classList.remove('is-hidden');
-        this._ui.header.start.weekday.innerHTML = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.start, 'dddd', {
-          locale: this.locale
-        }) : '';
-      } else {
-        this._ui.header.start.weekday.classList.add('is-hidden');
-      }
-
-      if (this._ui.header.start.hour) {
-        if (this.options.editTimeManually) {
-          this._ui.header.start.inputHours.value = this.timePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.start, 'HH', {
-            locale: this.locale
-          }) : '--';
-          this._ui.header.start.inputMinutes.value = this.timePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.start, 'mm', {
-            locale: this.locale
-          }) : '--';
-        } else {
-          this._ui.header.start.hour.innerHTML = this.timePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.start, 'HH:mm', {
-            locale: this.locale
-          }) : '--:--';
-        }
-      }
-
-      if (this._ui.header.end) {
-        this._ui.header.end.day.innerHTML = this.options.isRange && this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.end, 'DD', {
-          locale: this.locale
-        }) : '--';
-        this._ui.header.end.month.innerHTML = this.options.isRange && this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.end, 'MMMM YYYY', {
-          locale: this.locale
-        }) : '';
-        if (this.datePicker.end) {
-          this._ui.header.end.weekday.classList.remove('is-hidden');
-          this._ui.header.end.weekday.innerHTML = this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.end, 'dddd', {
-            locale: this.locale
-          }) : '';
-        } else {
-          this._ui.header.end.weekday.classList.add('is-hidden');
-        }
-
-        if (this._ui.header.end && this._ui.header.end.hour) {
-          if (this.options.editTimeManually) {
-            this._ui.header.end.inputHours.value = this.timePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.end, 'HH', {
-              locale: this.locale
-            }) : '--';
-            this._ui.header.end.inputMinutes.value = this.timePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.end, 'mm', {
-              locale: this.locale
-            }) : '--';
-          } else {
-            this._ui.header.end.hour.innerHTML = this.timePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.end, 'HH:mm', {
-              locale: this.locale
-            }) : '--:--';
-          }
-        }
-      }
-      this.emit('refresh', this);
-    }
-  }, {
-    key: 'clear',
-    value: function clear() {
-      this.datePicker.clear();
-      this.timePicker.clear();
-
-      this.refresh();
-      this.element.value = '';
-      this._ui.dummy.dummy_1.value = '';
-      if (this._ui.dummy.dummy_2) {
-        this._ui.dummy.dummy_2.value = '';
-      }
-      this.emit('clear', this);
-    }
-
-    /**
-     * Show datePicker HTML Component
-     * @method show
-     * @return {void}
-     */
-
-  }, {
-    key: 'show',
-    value: function show() {
-      this._snapshots = [];
-      this.snapshot();
-
-      if (this.element.value) {
-        this.datePicker.value(this.element.value);
-        this.timePicker.value(this.element.value);
-      }
-
-      this.datePicker.show();
-      this.timePicker.hide();
-
-      if (this._ui.modal) {
-        this._ui.modal.classList.add('is-active');
-      }
-      this._ui.wrapper.classList.add('is-active');
-      this._open = true;
-      this.emit('show', this);
-    }
-
-    /**
-     * Hide datePicker HTML Component
-     * @method hide
-     * @return {void}
-     */
-
-  }, {
-    key: 'hide',
-    value: function hide() {
-      this._open = false;
-      this._focus = false;
-      if (this._ui.modal) {
-        this._ui.modal.classList.remove('is-active');
-      }
-      this._ui.wrapper.classList.remove('is-active');
-      this.emit('hide', this);
-    }
-
-    // Set element value to datetime selected based on format
-
-  }, {
-    key: 'save',
-    value: function save() {
-      var date = this.value();
-
-      var _date$split = date.split(' - '),
-          _date$split2 = _slicedToArray(_date$split, 2),
-          start = _date$split2[0],
-          end = _date$split2[1];
-
-      this.element.value = date;
-      this._ui.dummy.dummy_1.value = start ? start : '';
-      if (this._ui.dummy.dummy_2) {
-        this._ui.dummy.dummy_2.value = end ? end : '';
-      }
-    }
-  }, {
-    key: 'snapshot',
-    value: function snapshot() {}
-    // this._snapshots.push([
-    //   ...this.datePicker,
-    //   ...this.timePicker
-    // ]);
-
-
-    /**
-     * Destroy datePicker
-     * @method destroy
-     * @return {[type]} [description]
-     */
-
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      this._ui.wrapper.remove();
-    }
-
-    /****************************************************
-     *                                                  *
-     * PRIVATE FUNCTIONS                                *
-     *                                                  *
-     ****************************************************/
-    /**
-     * Initiate plugin instance
-     * @method _init
-     * @return {datePicker} Current plugin instance
-     */
-
-  }, {
-    key: '_init',
-    value: function _init() {
-      this._open = false;
-      this._snapshots = []; // Use to revert selection
-      // Set component type (date / time / datetime)
-      // this.options.type = (['date', 'time', 'datetime'].indexOf(this.element.getAttribute('type').toLowerCase()) > -1) ? this.element.getAttribute('type').toLowerCase() : this.options.type;
-      this._type = ['date', 'time', 'datetime'].indexOf(this.options.type.toLowerCase()) > -1 ? this.options.type.toLowerCase() : 'date';
-      // Change element type to prevent browser default type="date" behavior
-      this.element.setAttribute('type', 'text');
-      this.datePicker = new __WEBPACK_IMPORTED_MODULE_5__datePicker__["a" /* default */](_extends({}, this.options, {
-        lang: this.lang
-      }));
-      this.timePicker = new __WEBPACK_IMPORTED_MODULE_6__timePicker__["a" /* default */](_extends({}, this.options, {
-        lang: this.lang
-      }));
-      if (this.element.value) {
-        this.datePicker.value(this.element.value);
-        this.timePicker.value(this.element.value);
-      }
-
-      this.lang = this.options.lang;
-      // Set export format based on component type
-      this.format = this._type === 'date' ? this.options.dateFormat : this._type === 'time' ? this.options.timeFormat : this.options.dateFormat + ' ' + this.options.timeFormat;
-
-      // Force dialog display mode on mobile devices
-      if (this.options.displayMode === 'default' && window.matchMedia('screen and (max-width: 768px)').matches) {
-        this.options.displayMode = 'dialog';
-      }
-      if (window.matchMedia('screen and (max-width: 768px)').matches) {
-        if (this.options.displayMode === 'default') {
-          this.options.displayMode = 'dialog';
-        }
-        this.options.displayDual = false;
-      }
-
-      this._build();
-      this._bindEvents();
-      this.save();
-
-      if (__WEBPACK_IMPORTED_MODULE_1__utils_type__["c" /* isFunction */](this.options.onReady)) {
-        this.on('ready', this.options.onReady);
-      }
-      this.emit('ready', this);
-    }
-
-    /**
-     * Build datePicker HTML component and append it to the DOM
-     * @method _build
-     * @return {datePicker} Current plugin instance
-     */
-
-  }, {
-    key: '_build',
-    value: function _build() {
-      var headerNode = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_9__templates_header__["a" /* default */])(_extends({}, this.options, {
-        type: this._type,
-        datePicker: this.options.type !== 'time',
-        timePicker: this.options.type !== 'date'
-      })));
-      var footerNode = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_10__templates_footer__["a" /* default */])(this.options));
-      var datetimePickerNode = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_8__templates__["a" /* default */])(_extends({}, this.options, {
-        id: this.id
-      })));
-
-      // Save pointer to each datePicker element for later use
-      this._ui = {
-        modal: datetimePickerNode.querySelector('.modal'),
-        wrapper: datetimePickerNode.querySelector('.datetimepicker'),
-        container: datetimePickerNode.querySelector('.datetimepicker-container'),
-        dummy: {
-          container: datetimePickerNode.querySelector('.datetimepicker-dummy'),
-          wrapper: datetimePickerNode.querySelector('.datetimepicker-dummy-wrapper'),
-          dummy_1: datetimePickerNode.querySelector('.datetimepicker-dummy .datetimepicker-dummy-input:nth-child(1)'),
-          dummy_2: datetimePickerNode.querySelector('.datetimepicker-dummy .datetimepicker-dummy-input:nth-child(2)'),
-          clear: datetimePickerNode.querySelector('.datetimepicker-dummy .datetimepicker-clear-button')
-        },
-        calendar: datetimePickerNode.querySelector('.datetimepicker'),
-        overlay: this.options.displayMode === 'dialog' ? {
-          background: datetimePickerNode.querySelector('.modal-background'),
-          close: datetimePickerNode.querySelector('.modal-close')
-        } : undefined,
-        header: {
-          container: headerNode.querySelector('.datetimepicker-header'),
-          start: {
-            container: headerNode.querySelector('.datetimepicker-selection-start'),
-            day: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-day'),
-            month: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-month'),
-            weekday: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-weekday'),
-            hour: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-hour'),
-            inputHours: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-hour.editable .datetimepicker-selection-input-hours'),
-            inputMinutes: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-hour.editable .datetimepicker-selection-input-minutes'),
-            empty: headerNode.querySelector('.datetimepicker-selection-start .empty')
-          },
-          end: this.options.isRange ? {
-            container: headerNode.querySelector('.datetimepicker-selection-end'),
-            day: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-day'),
-            month: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-month'),
-            weekday: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-weekday'),
-            hour: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-hour'),
-            inputHours: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-hour.editable .datetimepicker-selection-input-hours'),
-            inputMinutes: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-hour.editable .datetimepicker-selection-input-minutes'),
-            empty: headerNode.querySelector('.datetimepicker-selection-start .empty')
-          } : undefined
-        },
-        footer: {
-          container: footerNode.querySelector('.datetimepicker-footer'),
-          validate: footerNode.querySelector('.datetimepicker-footer-validate'),
-          today: footerNode.querySelector('.datetimepicker-footer-today'),
-          clear: footerNode.querySelector('.datetimepicker-footer-clear'),
-          cancel: footerNode.querySelector('.datetimepicker-footer-cancel')
-        }
-      };
-
-      if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showHeader)) {
-        this._ui.header.container.classList.add('is-hidden');
-      }
-      if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showFooter)) {
-        this._ui.footer.container.classList.add('is-hidden');
-      }
-      if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showTodayButton)) {
-        this._ui.footer.today.classList.add('is-hidden');
-      }
-      if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showClearButton)) {
-        this._ui.footer.clear.classList.add('is-hidden');
-      }
-
-      if (this.options.closeOnSelect && this._ui.footer.validate) {
-        this._ui.footer.validate.classList.add('is-hidden');
-      }
-
-      this._ui.container.appendChild(headerNode);
-      switch (this._type) {
-        case 'date':
-          this._ui.container.appendChild(this.datePicker.render());
-          break;
-        case 'time':
-          this._ui.container.appendChild(this.timePicker.render());
-          if (this._ui.footer.validate) {
-            this._ui.footer.validate.classList.remove('is-hidden');
-          }
-          if (this._ui.footer.today) {
-            this._ui.footer.today.classList.add('is-hidden');
-          }
-          break;
-        case 'datetime':
-          this.options.closeOnSelect = false;
-          if (this._ui.footer.validate) {
-            this._ui.footer.validate.classList.remove('is-hidden');
-          }
-          this._ui.container.appendChild(this.datePicker.render());
-          this._ui.container.appendChild(this.timePicker.render());
-          break;
-      }
-
-      this._ui.wrapper.appendChild(footerNode);
-      this._ui.wrapper.classList.add('is-' + this.options.color);
-      this._ui.dummy.container.classList.add('is-' + this.options.color);
-      // Add datepicker HTML element to Document Body
-      this.element.parentNode.insertBefore(datetimePickerNode, this.element.nextSibling);
-      this._ui.dummy.wrapper.appendChild(this.element);
-      this.element.classList.add('is-hidden');
-      // this.element.style.visibility = 'hidden';
-      // this.element.style.position = 'absolute';
-
-      if (this.options.displayMode === 'inline') {
-        this._ui.wrapper.classList.add('is-active');
-      } else {
-        this._ui.dummy.container.classList.remove('is-hidden');
-        this._ui.wrapper.style.position = 'absolute';
-        this._ui.wrapper.classList.add('is-datetimepicker-default');
-      }
-      this.refresh();
-    }
-
-    /**
-     * Bind all events
-     * @method _bindEvents
-     * @return {void}
-     */
-
-  }, {
-    key: '_bindEvents',
-    value: function _bindEvents() {
-      var _this2 = this;
-
-      this._clickEvents.forEach(function (clickEvent) {
-        document.body.addEventListener(clickEvent, _this2.onDocumentClickDateTimePicker);
-      });
-
-      this.datePicker.on('select', this.onSelectDateTimePicker);
-      this.datePicker.on('select:start', this.onSelectDateTimePicker);
-      this.datePicker.on('select:end', this.onSelectDateTimePicker);
-      this.timePicker.on('select', this.onSelectDateTimePicker);
-      this.timePicker.on('select:start', this.onSelectDateTimePicker);
-      this.timePicker.on('select:end', this.onSelectDateTimePicker);
-
-      // Bind event to element in order to display/hide datePicker on click
-      if (this.options.toggleOnInputClick === true) {
-        this._clickEvents.forEach(function (clickEvent) {
-          _this2._ui.dummy.wrapper.addEventListener(clickEvent, _this2.onToggleDateTimePicker);
-          _this2.element.addEventListener(clickEvent, _this2.onToggleDateTimePicker);
-        });
-      }
-
-      // Bind change time events for header inputs
-      if (this.options.type !== 'date' && this.options.editTimeManually) {
-        // Bind event for start hours change
-        this._ui.header.start.inputHours.addEventListener('change', this.onChangeStartHoursManually);
-        this._ui.header.start.inputHours.addEventListener('click', this.onClickTimeManuallyInput);
-        // Bind event for start minutes change
-        this._ui.header.start.inputMinutes.addEventListener('change', this.onChangeStartMinutesManually);
-        this._ui.header.start.inputMinutes.addEventListener('click', this.onClickTimeManuallyInput);
-        if (this.options.isRange) {
-          // Bind event for end hours change
-          this._ui.header.end.inputHours.addEventListener('change', this.onChangeEndHoursManually);
-          this._ui.header.end.inputHours.addEventListener('click', this.onClickTimeManuallyInput);
-          // Bind event for end minutes change
-          this._ui.header.end.inputMinutes.addEventListener('change', this.onChangeEndMinutesManually);
-          this._ui.header.end.inputMinutes.addEventListener('click', this.onClickTimeManuallyInput);
-        }
-      }
-
-      if (this.options.displayMode === 'dialog' && this._ui.overlay) {
-        // Bind close event on Close button
-        if (this._ui.overlay.close) {
-          this._clickEvents.forEach(function (clickEvent) {
-            _this2.this._ui.overlay.close.addEventListener(clickEvent, _this2.onCloseDateTimePicker);
-          });
-        }
-        // Bind close event on overlay based on options
-        if (this.options.closeOnOverlayClick && this._ui.overlay.background) {
-          this._clickEvents.forEach(function (clickEvent) {
-            _this2._ui.overlay.background.addEventListener(clickEvent, _this2.onCloseDateTimePicker);
-          });
-        }
-      }
-
-      if (this._ui.footer.validate) {
-        this._clickEvents.forEach(function (clickEvent) {
-          _this2._ui.footer.validate.addEventListener(clickEvent, _this2.onValidateClickDateTimePicker);
-        });
-      }
-      if (this._ui.footer.today) {
-        this._clickEvents.forEach(function (clickEvent) {
-          _this2._ui.footer.today.addEventListener(clickEvent, _this2.onTodayClickDateTimePicker);
-        });
-      }
-      if (this._ui.footer.clear) {
-        this._clickEvents.forEach(function (clickEvent) {
-          _this2._ui.footer.clear.addEventListener(clickEvent, _this2.onClearClickDateTimePicker);
-        });
-      }
-      this._clickEvents.forEach(function (clickEvent) {
-        _this2._ui.dummy.clear.addEventListener(clickEvent, _this2.onClearClickDateTimePicker);
-      });
-      if (this._ui.footer.cancel) {
-        this._clickEvents.forEach(function (clickEvent) {
-          _this2._ui.footer.cancel.addEventListener(clickEvent, _this2.onCancelClickDateTimePicker);
-        });
-      }
-    }
-  }, {
-    key: 'id',
-
-
-    /****************************************************
-     *                                                  *
-     * GETTERS and SETTERS                              *
-     *                                                  *
-     ****************************************************/
-
-    /**
-     * Get id of current instance
-     */
-    get: function get() {
-      return this._id;
-    }
-
-    // Set language
-
-  }, {
-    key: 'lang',
-    set: function set() {
-      var lang = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'en';
-
-      try {
-        this._locale = __webpack_require__(16)("./" + lang + '/index.js');
-      } catch (e) {
-        lang = 'en';
-        this._locale = __webpack_require__(16)("./" + lang + '/index.js');
-      } finally {
-        this._lang = lang;
-        this.datePicker.lang = lang;
-        this.timePicker.lang = lang;
-        return this;
-      }
-    }
-    // Get current language
-    ,
-    get: function get() {
-      return this._lang;
-    }
-  }, {
-    key: 'locale',
-    get: function get() {
-      return this._locale;
-    }
-
-    // Set format (set to yyyy-mm-dd HH:mm:ss by default)
-
-  }, {
-    key: 'format',
-    set: function set(format) {
-      this._format = format;
-      return this;
-    }
-    // Get format
-    ,
-    get: function get() {
-      return this._format;
-    }
-
-    /**
-     * * Date setter and getter
-     */
-
-  }, {
-    key: 'date',
-    set: function set() {
-      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      this.datePicker.date = date;
-      return this;
-    }
-    // Get date object
-    ,
-    get: function get() {
-      return this.datePicker.date;
-    }
-  }, {
-    key: 'startDate',
-    set: function set() {
-      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.datePicker.start = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
-      return this;
-    },
-    get: function get() {
-      return this.datePicker.start;
-    }
-  }, {
-    key: 'endDate',
-    set: function set() {
-      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.datePicker.end = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
-      return this;
-    },
-    get: function get() {
-      return this.datePicker.end;
-    }
-
-    /**
-     * minDate getter and setters
-     */
-
-  }, {
-    key: 'minDate',
-    set: function set() {
-      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.datePicker.minDate = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
-      return this;
-    }
-    // Get minDate
-    ,
-    get: function get() {
-      return this.datePicker.minDate;
-    }
-
-    // Set maxDate
-
-  }, {
-    key: 'maxDate',
-    set: function set() {
-      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.datePicker.maxDate = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
-      return this;
-    }
-    // Get maxDate
-    ,
-    get: function get() {
-      return this.datePicker.maxDate;
-    }
-
-    // Set dateFormat (set to yyyy-mm-dd by default)
-
-  }, {
-    key: 'dateFormat',
-    set: function set(dateFormat) {
-      this.datePicker.dateFormat = dateFormat;
-      return this;
-    }
-    // Get dateFormat
-    ,
-    get: function get() {
-      return this.datePicker.dateFormat;
-    }
-
-    /**
-     * * Time setter and getter
-     */
-
-  }, {
-    key: 'time',
-    set: function set() {
-      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      this.timePicker.time = time;
-      return this;
-    }
-    // Get time object
-    ,
-    get: function get() {
-      return this.timePicker.time;
-    }
-  }, {
-    key: 'startTime',
-    set: function set() {
-      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.timePicker.start = time;
-      return this;
-    },
-    get: function get() {
-      return this.timePicker.start;
-    }
-  }, {
-    key: 'endTime',
-    set: function set() {
-      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.timePicker.end = time;
-      return this;
-    },
-    get: function get() {
-      return this.timePicker.end;
-    }
-
-    /**
-     * minTime getter and setters
-     */
-
-  }, {
-    key: 'minTime',
-    set: function set() {
-      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.timePicker.minTime = time;
-      return this;
-    }
-    // Get minTime
-    ,
-    get: function get() {
-      return this.timePicker.minTime;
-    }
-
-    // Set maxTime
-
-  }, {
-    key: 'maxTime',
-    set: function set() {
-      var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this.timePicker.maxTime = time;
-      return this;
-    }
-    // Get maxTime
-    ,
-    get: function get() {
-      return this.timePicker.maxTime;
-    }
-
-    // Set timeFormat (set to HH:MM:SS by default)
-
-  }, {
-    key: 'timeFormat',
-    set: function set(timeFormat) {
-      this.timePicker.dateFormat = timeFormat;
-      return this;
-    }
-    // Get timeFormat
-    ,
-    get: function get() {
-      return this.timePicker.timeFormat;
-    }
-  }], [{
-    key: 'attach',
-    value: function attach() {
-      var _this3 = this;
-
-      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'input[type="date"]';
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-      var instances = new Array();
-
-      var elements = __WEBPACK_IMPORTED_MODULE_1__utils_type__["e" /* isString */](selector) ? document.querySelectorAll(selector) : Array.isArray(selector) ? selector : [selector];
-      [].forEach.call(elements, function (element) {
-        if (typeof element[_this3.constructor.name] === 'undefined') {
-          var instance = new bulmaCalendar(element, options);
-          element.bulmaCalendar = instance;
-          instances.push(instance);
-        } else {
-          instances.push(element[_this3.constructor.name]);
-        }
-      });
-
-      return instances;
-    }
-  }]);
-
-  return bulmaCalendar;
+	}, {
+		key: 'isOpen',
+		value: function isOpen() {
+			return this._open;
+		}
+
+		/**
+   * Get / Set datetimePicker value
+   * @param {*} date
+   */
+
+	}, {
+		key: 'value',
+		value: function value() {
+			var _value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+			if (_value) {
+				this.datePicker.value(_value);
+				this.timePicker.value(_value);
+			} else {
+				var string = '';
+				switch (this.options.type) {
+					case 'date':
+						string = this.datePicker.value();
+						break;
+					case 'time':
+						string = this.timePicker.value();
+						break;
+					case 'datetime':
+						var start = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["getTime"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addMinutes"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addHours"](this.datePicker.start, __WEBPACK_IMPORTED_MODULE_2_date_fns__["getHours"](this.timePicker.start)), __WEBPACK_IMPORTED_MODULE_2_date_fns__["getMinutes"](this.timePicker.start))) : undefined;
+						var end = this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["getTime"](this.datePicker.end) : undefined;
+
+						if (end && this.options.isRange) {
+							// This options is not required - in other place i set eod on date
+							//end = dateFns.getTime(dateFns.addMinutes(dateFns.addHours(this.datePicker.end, dateFns.getHours(this.timePicker.end)), dateFns.getMinutes(this.timePicker.end)));
+						}
+
+						string = start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](new Date(start), this.format, {
+							locale: this.locale
+						}) : '';
+						if (end) {
+							string += ' - ' + (end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](new Date(end), this.format, {
+								locale: this.locale
+							}) : '');
+						}
+						break;
+				}
+				return string;
+			}
+		}
+	}, {
+		key: 'refresh',
+		value: function refresh() {
+			this._ui.header.start.day.innerHTML = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.start, 'DD', {
+				locale: this.locale
+			}) : '--';
+			this._ui.header.start.month.innerHTML = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.start, this.options.headerMonthYearFormat, {
+				locale: this.locale
+			}) : '';
+			if (this.datePicker.start) {
+				this._ui.header.start.weekday.classList.remove('is-hidden');
+				this._ui.header.start.weekday.innerHTML = this.datePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.start, 'dddd', {
+					locale: this.locale
+				}) : '';
+			} else {
+				this._ui.header.start.weekday.classList.add('is-hidden');
+			}
+
+			if (this._ui.header.start.hour) {
+				if (this.options.editTimeManually) {
+					this._ui.header.start.inputHours.value = this.timePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.start, 'HH', {
+						locale: this.locale
+					}) : '--';
+					this._ui.header.start.inputMinutes.value = this.timePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.start, 'mm', {
+						locale: this.locale
+					}) : '--';
+				} else {
+					this._ui.header.start.hour.innerHTML = this.timePicker.start ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.start, 'HH:mm', {
+						locale: this.locale
+					}) : '--:--';
+				}
+			}
+
+			if (this._ui.header.end) {
+				this._ui.header.end.day.innerHTML = this.options.isRange && this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.end, 'DD', {
+					locale: this.locale
+				}) : '--';
+				this._ui.header.end.month.innerHTML = this.options.isRange && this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.end, this.options.headerMonthYearFormat, {
+					locale: this.locale
+				}) : '';
+				if (this.datePicker.end) {
+					this._ui.header.end.weekday.classList.remove('is-hidden');
+					this._ui.header.end.weekday.innerHTML = this.datePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.datePicker.end, 'dddd', {
+						locale: this.locale
+					}) : '';
+				} else {
+					this._ui.header.end.weekday.classList.add('is-hidden');
+				}
+
+				if (this._ui.header.end && this._ui.header.end.hour) {
+					if (this.options.editTimeManually) {
+						this._ui.header.end.inputHours.value = this.timePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.end, 'HH', {
+							locale: this.locale
+						}) : '--';
+						this._ui.header.end.inputMinutes.value = this.timePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.end, 'mm', {
+							locale: this.locale
+						}) : '--';
+					} else {
+						this._ui.header.end.hour.innerHTML = this.timePicker.end ? __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.timePicker.end, 'HH:mm', {
+							locale: this.locale
+						}) : '--:--';
+					}
+				}
+			}
+			this.emit('refresh', this);
+		}
+	}, {
+		key: 'clear',
+		value: function clear() {
+			this.datePicker.clear();
+			this.timePicker.clear();
+
+			this.refresh();
+			this.element.value = '';
+			this._ui.dummy.dummy_1.value = '';
+			if (this._ui.dummy.dummy_2) {
+				this._ui.dummy.dummy_2.value = '';
+			}
+			this.emit('clear', this);
+		}
+
+		/**
+   * Show datePicker HTML Component
+   * @method show
+   * @return {void}
+   */
+
+	}, {
+		key: 'show',
+		value: function show() {
+			this._snapshots = [];
+			this.snapshot();
+
+			if (this.element.value) {
+				this.datePicker.value(this.element.value);
+				this.timePicker.value(this.element.value);
+			}
+
+			this.datePicker.show();
+			this.timePicker.hide();
+
+			if (this._ui.modal) {
+				this._ui.modal.classList.add('is-active');
+			}
+			this._ui.wrapper.classList.add('is-active');
+			this._open = true;
+			this.emit('show', this);
+		}
+
+		/**
+   * Hide datePicker HTML Component
+   * @method hide
+   * @return {void}
+   */
+
+	}, {
+		key: 'hide',
+		value: function hide() {
+			this._open = false;
+			this._focus = false;
+			if (this._ui.modal) {
+				this._ui.modal.classList.remove('is-active');
+			}
+			this._ui.wrapper.classList.remove('is-active');
+			this.emit('hide', this);
+		}
+
+		// Set element value to datetime selected based on format
+
+	}, {
+		key: 'save',
+		value: function save() {
+			var date = this.value();
+
+			var _date$split = date.split(' - '),
+			    _date$split2 = _slicedToArray(_date$split, 2),
+			    start = _date$split2[0],
+			    end = _date$split2[1];
+
+			this.element.value = date;
+			this._ui.dummy.dummy_1.value = start ? start : '';
+			if (this._ui.dummy.dummy_2) {
+				this._ui.dummy.dummy_2.value = end ? end : '';
+			}
+		}
+	}, {
+		key: 'snapshot',
+		value: function snapshot() {}
+		// this._snapshots.push([
+		//   ...this.datePicker,
+		//   ...this.timePicker
+		// ]);
+
+
+		/**
+   * Destroy datePicker
+   * @method destroy
+   * @return {[type]} [description]
+   */
+
+	}, {
+		key: 'destroy',
+		value: function destroy() {
+			this._ui.wrapper.remove();
+		}
+
+		/****************************************************
+   *                                                  *
+   * PRIVATE FUNCTIONS                                *
+   *                                                  *
+   ****************************************************/
+		/**
+   * Initiate plugin instance
+   * @method _init
+   * @return {datePicker} Current plugin instance
+   */
+
+	}, {
+		key: '_init',
+		value: function _init() {
+			this._open = false;
+			this._snapshots = []; // Use to revert selection
+			// Set component type (date / time / datetime)
+			// this.options.type = (['date', 'time', 'datetime'].indexOf(this.element.getAttribute('type').toLowerCase()) > -1) ? this.element.getAttribute('type').toLowerCase() : this.options.type;
+			this._type = ['date', 'time', 'datetime'].indexOf(this.options.type.toLowerCase()) > -1 ? this.options.type.toLowerCase() : 'date';
+			// Change element type to prevent browser default type="date" behavior
+			this.element.setAttribute('type', 'text');
+			this.datePicker = new __WEBPACK_IMPORTED_MODULE_5__datePicker__["a" /* default */](_extends({}, this.options, {
+				lang: this.lang
+			}));
+			this.timePicker = new __WEBPACK_IMPORTED_MODULE_6__timePicker__["a" /* default */](_extends({}, this.options, {
+				lang: this.lang
+			}));
+			if (this.element.value) {
+				this.datePicker.value(this.element.value);
+				this.timePicker.value(this.element.value);
+			}
+
+			this.lang = this.options.lang;
+			// Set export format based on component type
+			this.format = this._type === 'date' ? this.options.dateFormat : this._type === 'time' ? this.options.timeFormat : this.options.dateFormat + ' ' + this.options.timeFormat;
+
+			// Force dialog display mode on mobile devices
+			if (this.options.displayMode === 'default' && window.matchMedia('screen and (max-width: 768px)').matches) {
+				this.options.displayMode = 'dialog';
+			}
+			if (window.matchMedia('screen and (max-width: 768px)').matches) {
+				if (this.options.displayMode === 'default') {
+					this.options.displayMode = 'dialog';
+				}
+				this.options.displayDual = false;
+			}
+
+			this._build();
+			this._bindEvents();
+			this.save();
+
+			if (__WEBPACK_IMPORTED_MODULE_1__utils_type__["c" /* isFunction */](this.options.onReady)) {
+				this.on('ready', this.options.onReady);
+			}
+			this.emit('ready', this);
+		}
+
+		/**
+   * Build datePicker HTML component and append it to the DOM
+   * @method _build
+   * @return {datePicker} Current plugin instance
+   */
+
+	}, {
+		key: '_build',
+		value: function _build() {
+			var headerNode = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_9__templates_header__["a" /* default */])(_extends({}, this.options, {
+				type: this._type,
+				datePicker: this.options.type !== 'time',
+				timePicker: this.options.type !== 'date'
+			})));
+			var footerNode = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_10__templates_footer__["a" /* default */])(this.options));
+			var datetimePickerNode = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_8__templates__["a" /* default */])(_extends({}, this.options, {
+				id: this.id
+			})));
+
+			// Save pointer to each datePicker element for later use
+			this._ui = {
+				modal: datetimePickerNode.querySelector('.modal'),
+				wrapper: datetimePickerNode.querySelector('.datetimepicker'),
+				container: datetimePickerNode.querySelector('.datetimepicker-container'),
+				dummy: {
+					container: datetimePickerNode.querySelector('.datetimepicker-dummy'),
+					wrapper: datetimePickerNode.querySelector('.datetimepicker-dummy-wrapper'),
+					dummy_1: datetimePickerNode.querySelector('.datetimepicker-dummy .datetimepicker-dummy-input:nth-child(1)'),
+					dummy_2: datetimePickerNode.querySelector('.datetimepicker-dummy .datetimepicker-dummy-input:nth-child(2)'),
+					clear: datetimePickerNode.querySelector('.datetimepicker-dummy .datetimepicker-clear-button')
+				},
+				calendar: datetimePickerNode.querySelector('.datetimepicker'),
+				overlay: this.options.displayMode === 'dialog' ? {
+					background: datetimePickerNode.querySelector('.modal-background'),
+					close: datetimePickerNode.querySelector('.modal-close')
+				} : undefined,
+				header: {
+					container: headerNode.querySelector('.datetimepicker-header'),
+					start: {
+						container: headerNode.querySelector('.datetimepicker-selection-start'),
+						day: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-day'),
+						month: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-month'),
+						weekday: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-weekday'),
+						hour: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-hour'),
+						inputHours: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-hour.editable .datetimepicker-selection-input-hours'),
+						inputMinutes: headerNode.querySelector('.datetimepicker-selection-start .datetimepicker-selection-hour.editable .datetimepicker-selection-input-minutes'),
+						empty: headerNode.querySelector('.datetimepicker-selection-start .empty')
+					},
+					end: this.options.isRange ? {
+						container: headerNode.querySelector('.datetimepicker-selection-end'),
+						day: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-day'),
+						month: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-month'),
+						weekday: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-weekday'),
+						hour: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-hour'),
+						inputHours: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-hour.editable .datetimepicker-selection-input-hours'),
+						inputMinutes: headerNode.querySelector('.datetimepicker-selection-end .datetimepicker-selection-hour.editable .datetimepicker-selection-input-minutes'),
+						empty: headerNode.querySelector('.datetimepicker-selection-start .empty')
+					} : undefined
+				},
+				footer: {
+					container: footerNode.querySelector('.datetimepicker-footer'),
+					validate: footerNode.querySelector('.datetimepicker-footer-validate'),
+					today: footerNode.querySelector('.datetimepicker-footer-today'),
+					clear: footerNode.querySelector('.datetimepicker-footer-clear'),
+					cancel: footerNode.querySelector('.datetimepicker-footer-cancel')
+				}
+			};
+
+			if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showHeader)) {
+				this._ui.header.container.classList.add('is-hidden');
+			}
+			if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showFooter)) {
+				this._ui.footer.container.classList.add('is-hidden');
+			}
+			if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showTodayButton)) {
+				this._ui.footer.today.classList.add('is-hidden');
+			}
+			if (!__WEBPACK_IMPORTED_MODULE_1__utils_type__["a" /* BooleanParse */](this.options.showClearButton)) {
+				this._ui.footer.clear.classList.add('is-hidden');
+			}
+
+			if (this.options.closeOnSelect && this._ui.footer.validate) {
+				this._ui.footer.validate.classList.add('is-hidden');
+			}
+
+			this._ui.container.appendChild(headerNode);
+			switch (this._type) {
+				case 'date':
+					this._ui.container.appendChild(this.datePicker.render());
+					break;
+				case 'time':
+					this._ui.container.appendChild(this.timePicker.render());
+					if (this._ui.footer.validate) {
+						this._ui.footer.validate.classList.remove('is-hidden');
+					}
+					if (this._ui.footer.today) {
+						this._ui.footer.today.classList.add('is-hidden');
+					}
+					break;
+				case 'datetime':
+					this.options.closeOnSelect = false;
+					if (this._ui.footer.validate) {
+						this._ui.footer.validate.classList.remove('is-hidden');
+					}
+					this._ui.container.appendChild(this.datePicker.render());
+					this._ui.container.appendChild(this.timePicker.render());
+					break;
+			}
+
+			this._ui.wrapper.appendChild(footerNode);
+			this._ui.wrapper.classList.add('is-' + this.options.color);
+			this._ui.dummy.container.classList.add('is-' + this.options.color);
+			// Add datepicker HTML element to Document Body
+			this.element.parentNode.insertBefore(datetimePickerNode, this.element.nextSibling);
+			this._ui.dummy.wrapper.appendChild(this.element);
+			this.element.classList.add('is-hidden');
+			// this.element.style.visibility = 'hidden';
+			// this.element.style.position = 'absolute';
+
+			if (this.options.displayMode === 'inline') {
+				this._ui.wrapper.classList.add('is-active');
+			} else {
+				this._ui.dummy.container.classList.remove('is-hidden');
+				this._ui.wrapper.style.position = 'absolute';
+				this._ui.wrapper.classList.add('is-datetimepicker-default');
+			}
+			this.refresh();
+		}
+
+		/**
+   * Bind all events
+   * @method _bindEvents
+   * @return {void}
+   */
+
+	}, {
+		key: '_bindEvents',
+		value: function _bindEvents() {
+			var _this2 = this;
+
+			this._clickEvents.forEach(function (clickEvent) {
+				document.body.addEventListener(clickEvent, _this2.onDocumentClickDateTimePicker);
+			});
+
+			this.datePicker.on('select', this.onSelectDateTimePicker);
+			this.datePicker.on('select:start', this.onSelectDateTimePicker);
+			this.datePicker.on('select:end', this.onSelectDateTimePicker);
+			this.timePicker.on('select', this.onSelectDateTimePicker);
+			this.timePicker.on('select:start', this.onSelectDateTimePicker);
+			this.timePicker.on('select:end', this.onSelectDateTimePicker);
+
+			// Bind event to element in order to display/hide datePicker on click
+			if (this.options.toggleOnInputClick === true) {
+				this._clickEvents.forEach(function (clickEvent) {
+					_this2._ui.dummy.wrapper.addEventListener(clickEvent, _this2.onToggleDateTimePicker);
+					_this2.element.addEventListener(clickEvent, _this2.onToggleDateTimePicker);
+				});
+			}
+
+			// Bind change time events for header inputs
+			if (this.options.type !== 'date' && this.options.editTimeManually) {
+				// Bind event for start hours change
+				this._ui.header.start.inputHours.addEventListener('change', this.onChangeStartHoursManually);
+				this._ui.header.start.inputHours.addEventListener('click', this.onClickTimeManuallyInput);
+				// Bind event for start minutes change
+				this._ui.header.start.inputMinutes.addEventListener('change', this.onChangeStartMinutesManually);
+				this._ui.header.start.inputMinutes.addEventListener('click', this.onClickTimeManuallyInput);
+				if (this.options.isRange) {
+					// Bind event for end hours change
+					this._ui.header.end.inputHours.addEventListener('change', this.onChangeEndHoursManually);
+					this._ui.header.end.inputHours.addEventListener('click', this.onClickTimeManuallyInput);
+					// Bind event for end minutes change
+					this._ui.header.end.inputMinutes.addEventListener('change', this.onChangeEndMinutesManually);
+					this._ui.header.end.inputMinutes.addEventListener('click', this.onClickTimeManuallyInput);
+				}
+			}
+
+			if (this.options.displayMode === 'dialog' && this._ui.overlay) {
+				// Bind close event on Close button
+				if (this._ui.overlay.close) {
+					this._clickEvents.forEach(function (clickEvent) {
+						_this2.this._ui.overlay.close.addEventListener(clickEvent, _this2.onCloseDateTimePicker);
+					});
+				}
+				// Bind close event on overlay based on options
+				if (this.options.closeOnOverlayClick && this._ui.overlay.background) {
+					this._clickEvents.forEach(function (clickEvent) {
+						_this2._ui.overlay.background.addEventListener(clickEvent, _this2.onCloseDateTimePicker);
+					});
+				}
+			}
+
+			if (this._ui.footer.validate) {
+				this._clickEvents.forEach(function (clickEvent) {
+					_this2._ui.footer.validate.addEventListener(clickEvent, _this2.onValidateClickDateTimePicker);
+				});
+			}
+			if (this._ui.footer.today) {
+				this._clickEvents.forEach(function (clickEvent) {
+					_this2._ui.footer.today.addEventListener(clickEvent, _this2.onTodayClickDateTimePicker);
+				});
+			}
+			if (this._ui.footer.clear) {
+				this._clickEvents.forEach(function (clickEvent) {
+					_this2._ui.footer.clear.addEventListener(clickEvent, _this2.onClearClickDateTimePicker);
+				});
+			}
+			this._clickEvents.forEach(function (clickEvent) {
+				_this2._ui.dummy.clear.addEventListener(clickEvent, _this2.onClearClickDateTimePicker);
+			});
+			if (this._ui.footer.cancel) {
+				this._clickEvents.forEach(function (clickEvent) {
+					_this2._ui.footer.cancel.addEventListener(clickEvent, _this2.onCancelClickDateTimePicker);
+				});
+			}
+		}
+	}, {
+		key: 'id',
+
+
+		/****************************************************
+   *                                                  *
+   * GETTERS and SETTERS                              *
+   *                                                  *
+   ****************************************************/
+
+		/**
+   * Get id of current instance
+   */
+		get: function get() {
+			return this._id;
+		}
+
+		// Set language
+
+	}, {
+		key: 'lang',
+		set: function set() {
+			var lang = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'en';
+
+			try {
+				this._locale = __webpack_require__(16)("./" + lang + '/index.js');
+			} catch (e) {
+				lang = 'en';
+				this._locale = __webpack_require__(16)("./" + lang + '/index.js');
+			} finally {
+				this._lang = lang;
+				this.datePicker.lang = lang;
+				this.timePicker.lang = lang;
+				return this;
+			}
+		}
+		// Get current language
+		,
+		get: function get() {
+			return this._lang;
+		}
+	}, {
+		key: 'locale',
+		get: function get() {
+			return this._locale;
+		}
+
+		// Set format (set to yyyy-mm-dd HH:mm:ss by default)
+
+	}, {
+		key: 'format',
+		set: function set(format) {
+			this._format = format;
+			return this;
+		}
+		// Get format
+		,
+		get: function get() {
+			return this._format;
+		}
+
+		/**
+   * * Date setter and getter
+   */
+
+	}, {
+		key: 'date',
+		set: function set() {
+			var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+			this.datePicker.date = date;
+			return this;
+		}
+		// Get date object
+		,
+		get: function get() {
+			return this.datePicker.date;
+		}
+	}, {
+		key: 'startDate',
+		set: function set() {
+			var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.datePicker.start = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
+			return this;
+		},
+		get: function get() {
+			return this.datePicker.start;
+		}
+	}, {
+		key: 'endDate',
+		set: function set() {
+			var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.datePicker.end = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
+			return this;
+		},
+		get: function get() {
+			return this.datePicker.end;
+		}
+
+		/**
+   * minDate getter and setters
+   */
+
+	}, {
+		key: 'minDate',
+		set: function set() {
+			var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.datePicker.minDate = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
+			return this;
+		}
+		// Get minDate
+		,
+		get: function get() {
+			return this.datePicker.minDate;
+		}
+
+		// Set maxDate
+
+	}, {
+		key: 'maxDate',
+		set: function set() {
+			var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.datePicker.maxDate = __WEBPACK_IMPORTED_MODULE_3_date_and_time___default.a.parse(date, this.dateFormat);
+			return this;
+		}
+		// Get maxDate
+		,
+		get: function get() {
+			return this.datePicker.maxDate;
+		}
+
+		// Set dateFormat (set to yyyy-mm-dd by default)
+
+	}, {
+		key: 'dateFormat',
+		set: function set(dateFormat) {
+			this.datePicker.dateFormat = dateFormat;
+			return this;
+		}
+		// Get dateFormat
+		,
+		get: function get() {
+			return this.datePicker.dateFormat;
+		}
+
+		/**
+   * * Time setter and getter
+   */
+
+	}, {
+		key: 'time',
+		set: function set() {
+			var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+			this.timePicker.time = time;
+			return this;
+		}
+		// Get time object
+		,
+		get: function get() {
+			return this.timePicker.time;
+		}
+	}, {
+		key: 'startTime',
+		set: function set() {
+			var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.timePicker.start = time;
+			return this;
+		},
+		get: function get() {
+			return this.timePicker.start;
+		}
+	}, {
+		key: 'endTime',
+		set: function set() {
+			var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.timePicker.end = time;
+			return this;
+		},
+		get: function get() {
+			return this.timePicker.end;
+		}
+
+		/**
+   * minTime getter and setters
+   */
+
+	}, {
+		key: 'minTime',
+		set: function set() {
+			var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.timePicker.minTime = time;
+			return this;
+		}
+		// Get minTime
+		,
+		get: function get() {
+			return this.timePicker.minTime;
+		}
+
+		// Set maxTime
+
+	}, {
+		key: 'maxTime',
+		set: function set() {
+			var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+			this.timePicker.maxTime = time;
+			return this;
+		}
+		// Get maxTime
+		,
+		get: function get() {
+			return this.timePicker.maxTime;
+		}
+
+		// Set timeFormat (set to HH:MM:SS by default)
+
+	}, {
+		key: 'timeFormat',
+		set: function set(timeFormat) {
+			this.timePicker.dateFormat = timeFormat;
+			return this;
+		}
+		// Get timeFormat
+		,
+		get: function get() {
+			return this.timePicker.timeFormat;
+		}
+	}], [{
+		key: 'attach',
+		value: function attach() {
+			var _this3 = this;
+
+			var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'input[type="date"]';
+			var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+			var instances = new Array();
+
+			var elements = __WEBPACK_IMPORTED_MODULE_1__utils_type__["e" /* isString */](selector) ? document.querySelectorAll(selector) : Array.isArray(selector) ? selector : [selector];
+			[].forEach.call(elements, function (element) {
+				if (typeof element[_this3.constructor.name] === 'undefined') {
+					var instance = new bulmaCalendar(element, options);
+					element.bulmaCalendar = instance;
+					instances.push(instance);
+				} else {
+					instances.push(element[_this3.constructor.name]);
+				}
+			});
+
+			return instances;
+		}
+	}]);
+
+	return bulmaCalendar;
 }(__WEBPACK_IMPORTED_MODULE_4__utils_events__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["default"] = (bulmaCalendar);
@@ -17580,7 +17582,9 @@ var datePicker = function (_EventEmitter) {
 
 				if (this.options.isRange) {
 					if (this.end && this._isValidDate(this.end)) {
-						string += ' - ' + __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.end, this.format, { locale: this.locale });
+						string += ' - ' + __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this.end, this.format, {
+							locale: this.locale
+						});
 					}
 				}
 				return string;
@@ -17648,7 +17652,9 @@ var datePicker = function (_EventEmitter) {
 			});
 
 			// the 7 days of the week (Sun-Sat)
-			var weekdayLabels = new Array(7).fill(__WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfWeek"](this._visibleDate, { weekStartsOn: this.options.weekStart })).map(function (d, i) {
+			var weekdayLabels = new Array(7).fill(__WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfWeek"](this._visibleDate, {
+				weekStartsOn: this.options.weekStart
+			})).map(function (d, i) {
 				return __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addDays"](d, i), 'ddd', {
 					locale: _this2.locale
 				});
@@ -17669,10 +17675,10 @@ var datePicker = function (_EventEmitter) {
 				this._toggleNextButton();
 			}
 
-			this._ui.navigation.month.innerHTML = __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this._visibleDate, 'MMMM', {
+			this._ui.navigation.month.innerHTML = __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this._visibleDate, this.options.navigationMonthFormat, {
 				locale: this.locale
 			});
-			this._ui.navigation.year.innerHTML = __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this._visibleDate, 'YYYY', {
+			this._ui.navigation.year.innerHTML = __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](this._visibleDate, this.options.navigationYearFormat, {
 				locale: this.locale
 			});
 
@@ -17868,9 +17874,13 @@ var datePicker = function (_EventEmitter) {
 			var _this5 = this;
 
 			// first day of current month view
-			var start = __WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfWeek"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfMonth"](this._visibleDate), { weekStartsOn: this.options.weekStart });
+			var start = __WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfWeek"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfMonth"](this._visibleDate), {
+				weekStartsOn: this.options.weekStart
+			});
 			// last day of current month view
-			var end = __WEBPACK_IMPORTED_MODULE_2_date_fns__["endOfWeek"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["endOfMonth"](this._visibleDate), { weekStartsOn: this.options.weekStart });
+			var end = __WEBPACK_IMPORTED_MODULE_2_date_fns__["endOfWeek"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["endOfMonth"](this._visibleDate), {
+				weekStartsOn: this.options.weekStart
+			});
 
 			// get all days and whether they are within the current month and range
 			var days = new Array(__WEBPACK_IMPORTED_MODULE_2_date_fns__["differenceInDays"](end, start) + 1).fill(start).map(function (s, i) {
@@ -18257,22 +18267,22 @@ var datePicker = function (_EventEmitter) {
 
 "use strict";
 var defaultOptions = {
-  color: 'primary',
-  isRange: false,
-  allowSameDayRange: true,
-  lang: 'en', // internationalization
-  startDate: undefined,
-  endDate: undefined,
-  minDate: null,
-  maxDate: null,
-  disabledDates: [],
-  disabledWeekDays: undefined,
-  highlightedDates: [],
-  weekStart: 0,
-  dateFormat: 'MM/DD/YYYY',
-  enableMonthSwitch: true,
-  enableYearSwitch: true,
-  displayYearsCount: 50
+	color: 'primary',
+	isRange: false,
+	allowSameDayRange: true,
+	lang: 'en', // internationalization
+	startDate: undefined,
+	endDate: undefined,
+	minDate: null,
+	maxDate: null,
+	disabledDates: [],
+	disabledWeekDays: undefined,
+	highlightedDates: [],
+	weekStart: 0,
+	dateFormat: 'MM/DD/YYYY',
+	enableMonthSwitch: true,
+	enableYearSwitch: true,
+	displayYearsCount: 50
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (defaultOptions);
@@ -19709,52 +19719,55 @@ var defaultOptions = {
 
 "use strict";
 var defaultOptions = {
-  type: undefined,
-  color: 'primary',
-  isRange: false,
-  allowSameDayRange: true,
-  lang: navigator.language.substring(0, 2) || 'en', // internationalization
-  dateFormat: 'MM/DD/YYYY',
-  timeFormat: 'HH:mm',
-  displayMode: 'default',
-  editTimeManually: false,
-  position: 'auto',
-  showHeader: true,
-  headerPosition: 'top',
-  showFooter: true,
-  showButtons: true,
-  showTodayButton: true,
-  showClearButton: true,
-  cancelLabel: 'Cancel',
-  clearLabel: 'Clear',
-  todayLabel: 'Today',
-  nowLabel: 'Now',
-  validateLabel: 'Validate',
-  enableMonthSwitch: true,
-  enableYearSwitch: true,
-  startDate: undefined,
-  endDate: undefined,
-  minDate: null,
-  maxDate: null,
-  disabledDates: [],
-  disabledWeekDays: undefined,
-  highlightedDates: [],
-  weekStart: 0,
-  startTime: undefined,
-  endTime: undefined,
-  minuteSteps: 5,
-  labelFrom: '',
-  labelTo: '',
-  closeOnOverlayClick: true,
-  closeOnSelect: true,
-  toggleOnInputClick: true,
-  onReady: null,
-  icons: {
-    previous: '<svg viewBox="0 0 50 80" xml:space="preserve">\n      <polyline fill="none" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>\n    </svg>',
-    next: '<svg viewBox="0 0 50 80" xml:space="preserve">\n      <polyline fill="none" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 "/>\n    </svg>',
-    time: '<svg version="1.1" x="0px" y="0px" viewBox="0 0 60 60" xml:space="preserve">\n      <g>\n        <path fill="currentcolor" d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"/>\n\t      <path fill="currentcolor" d="M30,6c-0.552,0-1,0.447-1,1v23H14c-0.552,0-1,0.447-1,1s0.448,1,1,1h16c0.552,0,1-0.447,1-1V7C31,6.447,30.552,6,30,6z"/>\n      </g>\n    </svg>',
-    date: '<svg version="1.1" x="0px" y="0px" viewBox="0 0 60 60" xml:space="preserve">\n      <g>\n        <path d="M57,4h-7V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H19V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H3C2.447,4,2,4.447,2,5v11v43c0,0.553,0.447,1,1,1h54c0.553,0,1-0.447,1-1V16V5C58,4.447,57.553,4,57,4z M43,2h5v3v3h-5V5V2z M12,2h5v3v3h-5V5V2z M4,6h6v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h22v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h6v9H4V6zM4,58V17h52v41H4z"/>\n        <path d="M38,23h-7h-2h-7h-2h-9v9v2v7v2v9h9h2h7h2h7h2h9v-9v-2v-7v-2v-9h-9H38z M31,25h7v7h-7V25z M38,41h-7v-7h7V41z M22,34h7v7h-7V34z M22,25h7v7h-7V25z M13,25h7v7h-7V25z M13,34h7v7h-7V34z M20,50h-7v-7h7V50z M29,50h-7v-7h7V50z M38,50h-7v-7h7V50z M47,50h-7v-7h7V50z M47,41h-7v-7h7V41z M47,25v7h-7v-7H47z"/>\n      </g>\n    </svg>'
-  }
+		type: undefined,
+		color: 'primary',
+		isRange: false,
+		allowSameDayRange: true,
+		lang: navigator.language.substring(0, 2) || 'en', // internationalization
+		dateFormat: 'MM/DD/YYYY',
+		timeFormat: 'HH:mm',
+		navigationMonthFormat: 'MMMM',
+		navigationYearFormat: 'YYYY',
+		headerMonthYearFormat: 'MMMM YYYY',
+		displayMode: 'default',
+		editTimeManually: false,
+		position: 'auto',
+		showHeader: true,
+		headerPosition: 'top',
+		showFooter: true,
+		showButtons: true,
+		showTodayButton: true,
+		showClearButton: true,
+		cancelLabel: 'Cancel',
+		clearLabel: 'Clear',
+		todayLabel: 'Today',
+		nowLabel: 'Now',
+		validateLabel: 'Validate',
+		enableMonthSwitch: true,
+		enableYearSwitch: true,
+		startDate: undefined,
+		endDate: undefined,
+		minDate: null,
+		maxDate: null,
+		disabledDates: [],
+		disabledWeekDays: undefined,
+		highlightedDates: [],
+		weekStart: 0,
+		startTime: undefined,
+		endTime: undefined,
+		minuteSteps: 5,
+		labelFrom: '',
+		labelTo: '',
+		closeOnOverlayClick: true,
+		closeOnSelect: true,
+		toggleOnInputClick: true,
+		onReady: null,
+		icons: {
+				previous: '<svg viewBox="0 0 50 80" xml:space="preserve">\n      <polyline fill="none" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/>\n    </svg>',
+				next: '<svg viewBox="0 0 50 80" xml:space="preserve">\n      <polyline fill="none" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 "/>\n    </svg>',
+				time: '<svg version="1.1" x="0px" y="0px" viewBox="0 0 60 60" xml:space="preserve">\n      <g>\n        <path fill="currentcolor" d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"/>\n\t      <path fill="currentcolor" d="M30,6c-0.552,0-1,0.447-1,1v23H14c-0.552,0-1,0.447-1,1s0.448,1,1,1h16c0.552,0,1-0.447,1-1V7C31,6.447,30.552,6,30,6z"/>\n      </g>\n    </svg>',
+				date: '<svg version="1.1" x="0px" y="0px" viewBox="0 0 60 60" xml:space="preserve">\n      <g>\n        <path d="M57,4h-7V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H19V1c0-0.553-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1v3H3C2.447,4,2,4.447,2,5v11v43c0,0.553,0.447,1,1,1h54c0.553,0,1-0.447,1-1V16V5C58,4.447,57.553,4,57,4z M43,2h5v3v3h-5V5V2z M12,2h5v3v3h-5V5V2z M4,6h6v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h22v3c0,0.553,0.447,1,1,1h7c0.553,0,1-0.447,1-1V6h6v9H4V6zM4,58V17h52v41H4z"/>\n        <path d="M38,23h-7h-2h-7h-2h-9v9v2v7v2v9h9h2h7h2h7h2h9v-9v-2v-7v-2v-9h-9H38z M31,25h7v7h-7V25z M38,41h-7v-7h7V41z M22,34h7v7h-7V34z M22,25h7v7h-7V25z M13,25h7v7h-7V25z M13,34h7v7h-7V34z M20,50h-7v-7h7V50z M29,50h-7v-7h7V50z M38,50h-7v-7h7V50z M47,50h-7v-7h7V50z M47,41h-7v-7h7V41z M47,25v7h-7v-7H47z"/>\n      </g>\n    </svg>'
+		}
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (defaultOptions);
