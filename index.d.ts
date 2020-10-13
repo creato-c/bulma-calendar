@@ -78,6 +78,13 @@ declare namespace bulmaCalendar {
     headerMonthYearFromat?: string;
 
     /**
+     * Weekday format pattern
+     *
+     * @default 'ddd'
+     */
+    weekdayFormat?: string;
+
+    /**
      * Display mode
      *
      * @default 'default'

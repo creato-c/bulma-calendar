@@ -17649,7 +17649,7 @@ var datePicker = function (_EventEmitter) {
 
       // the 7 days of the week (Sun-Sat)
       var weekdayLabels = new Array(7).fill(__WEBPACK_IMPORTED_MODULE_2_date_fns__["startOfWeek"](this._visibleDate, { weekStartsOn: this.options.weekStart })).map(function (d, i) {
-        return __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addDays"](d, i), 'ddd', {
+        return __WEBPACK_IMPORTED_MODULE_2_date_fns__["format"](__WEBPACK_IMPORTED_MODULE_2_date_fns__["addDays"](d, i), _this2.options.weekdayFormat, {
           locale: _this2.locale
         });
       });
@@ -18272,6 +18272,7 @@ var defaultOptions = {
   dateFormat: 'MM/DD/YYYY',
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
+  weekdayFormat: 'ddd',
   enableMonthSwitch: true,
   enableYearSwitch: true,
   displayYearsCount: 50
@@ -19721,6 +19722,7 @@ var defaultOptions = {
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
   headerMonthYearFromat: 'MMMM YYYY',
+  weekdayFormat: 'ddd',
   displayMode: 'default',
   editTimeManually: false,
   position: 'auto',

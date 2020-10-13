@@ -461,7 +461,7 @@ export default class datePicker extends EventEmitter {
 
     // the 7 days of the week (Sun-Sat)
     const weekdayLabels = new Array(7).fill(dateFns.startOfWeek(this._visibleDate, { weekStartsOn: this.options.weekStart })).map((d, i) =>
-      dateFns.format(dateFns.addDays(d, i), 'ddd', {
+      dateFns.format(dateFns.addDays(d, i), this.options.weekdayFormat, {
         locale: this.locale,
       })
     );

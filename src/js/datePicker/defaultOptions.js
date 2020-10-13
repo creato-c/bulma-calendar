@@ -14,6 +14,7 @@ const defaultOptions = {
   dateFormat: 'MM/DD/YYYY',
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
+  weekdayFormat: 'ddd',
   enableMonthSwitch: true,
   enableYearSwitch: true,
   displayYearsCount: 50,

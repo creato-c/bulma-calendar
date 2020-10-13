@@ -9,6 +9,7 @@ const defaultOptions = {
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
   headerMonthYearFromat: 'MMMM YYYY',
+  weekdayFormat: 'ddd',
   displayMode: 'default',
   editTimeManually: false,
   position: 'auto',
