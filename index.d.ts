@@ -71,6 +71,13 @@ declare namespace bulmaCalendar {
     navigationYearFormat?: string;
 
     /**
+     * Let year show first on navigation month year
+     *
+     * @default false
+     */
+    navigationYearFirst?: boolean;
+
+    /**
      * Header month year format pattern
      *
      * @default 'MMMM YYYY'

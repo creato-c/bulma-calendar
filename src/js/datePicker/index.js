@@ -573,6 +573,7 @@ export default class datePicker extends EventEmitter {
         locale: this.locale,
         visibleDate: this._visibleDate,
         icons: this.options.icons,
+        navigationYearFirst: this.options.navigationYearFirst,
       })
     );
 

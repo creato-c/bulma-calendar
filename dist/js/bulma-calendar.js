@@ -17760,7 +17760,8 @@ var datePicker = function (_EventEmitter) {
       this.node = document.createRange().createContextualFragment(Object(__WEBPACK_IMPORTED_MODULE_4__templates_datepicker__["a" /* default */])({
         locale: this.locale,
         visibleDate: this._visibleDate,
-        icons: this.options.icons
+        icons: this.options.icons,
+        navigationYearFirst: this.options.navigationYearFirst
       }));
 
       this._ui = {
@@ -18192,7 +18193,7 @@ var datePicker = function (_EventEmitter) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function (data) {
-  return "<div class=\"datepicker\">\n    <div class=\"datepicker-nav\">\n        <button type=\"button\" class=\"datepicker-nav-previous button is-small is-text\">" + data.icons.previous + "</button>\n        <div class=\"datepicker-nav-month-year\">\n          <div class=\"datepicker-nav-month\"></div>\n          &nbsp;\n          <div class=\"datepicker-nav-year\"></div>\n        </div>\n        <button type=\"button\" class=\"datepicker-nav-next button is-small is-text\">" + data.icons.next + "</button>\n      </div>\n      <div class=\"datepicker-body\">\n        <div class=\"datepicker-dates is-active\"></div>\n        <div class=\"datepicker-months\"></div>\n        <div class=\"datepicker-years\"></div>\n      </div>\n    </div>";
+  return '<div class="datepicker">\n    <div class="datepicker-nav">\n        <button type="button" class="datepicker-nav-previous button is-small is-text">' + data.icons.previous + '</button>\n        <div class="datepicker-nav-month-year ' + (navigationYearFirst ? 'is-reverse' : '') + '">\n          <div class="datepicker-nav-month"></div>\n          &nbsp;\n          <div class="datepicker-nav-year"></div>\n        </div>\n        <button type="button" class="datepicker-nav-next button is-small is-text">' + data.icons.next + '</button>\n      </div>\n      <div class="datepicker-body">\n        <div class="datepicker-dates is-active"></div>\n        <div class="datepicker-months"></div>\n        <div class="datepicker-years"></div>\n      </div>\n    </div>';
 });
 
 /***/ }),
@@ -18272,6 +18273,7 @@ var defaultOptions = {
   dateFormat: 'MM/DD/YYYY',
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
+  navigationYearFirst: false,
   weekdayFormat: 'ddd',
   enableMonthSwitch: true,
   enableYearSwitch: true,
@@ -19721,6 +19723,7 @@ var defaultOptions = {
   timeFormat: 'HH:mm',
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
+  navigationYearFirst: false,
   headerMonthYearFromat: 'MMMM YYYY',
   weekdayFormat: 'ddd',
   displayMode: 'default',

@@ -8,6 +8,7 @@ const defaultOptions = {
   timeFormat: 'HH:mm',
   navigationMonthFormat: 'MMMM',
   navigationYearFormat: 'YYYY',
+  navigationYearFirst: false,
   headerMonthYearFromat: 'MMMM YYYY',
   weekdayFormat: 'ddd',
   displayMode: 'default',
