@@ -18193,7 +18193,7 @@ var datePicker = function (_EventEmitter) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function (data) {
-  return '<div class="datepicker">\n    <div class="datepicker-nav">\n        <button type="button" class="datepicker-nav-previous button is-small is-text">' + data.icons.previous + '</button>\n        <div class="datepicker-nav-month-year ' + (navigationYearFirst ? 'is-reverse' : '') + '">\n          <div class="datepicker-nav-month"></div>\n          &nbsp;\n          <div class="datepicker-nav-year"></div>\n        </div>\n        <button type="button" class="datepicker-nav-next button is-small is-text">' + data.icons.next + '</button>\n      </div>\n      <div class="datepicker-body">\n        <div class="datepicker-dates is-active"></div>\n        <div class="datepicker-months"></div>\n        <div class="datepicker-years"></div>\n      </div>\n    </div>';
+  return '<div class="datepicker">\n    <div class="datepicker-nav">\n        <button type="button" class="datepicker-nav-previous button is-small is-text">' + data.icons.previous + '</button>\n        <div class="datepicker-nav-month-year ' + (data.navigationYearFirst ? 'is-reverse' : '') + '">\n          <div class="datepicker-nav-month"></div>\n          &nbsp;\n          <div class="datepicker-nav-year"></div>\n        </div>\n        <button type="button" class="datepicker-nav-next button is-small is-text">' + data.icons.next + '</button>\n      </div>\n      <div class="datepicker-body">\n        <div class="datepicker-dates is-active"></div>\n        <div class="datepicker-months"></div>\n        <div class="datepicker-years"></div>\n      </div>\n    </div>';
 });
 
 /***/ }),
